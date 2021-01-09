@@ -1,0 +1,17 @@
+.mList {
+  list-style-type: none;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-left: auto;
+  margin-right: auto;
+  padding-inline-start: 0px;
+}
+
+.mListLink {
+  text-decoration: none;
+  font-size: 20px;
+  font-weight: 200;
+  line-height: 1.2;
+  color: #515151;
+}

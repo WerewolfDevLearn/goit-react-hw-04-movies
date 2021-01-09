@@ -1,0 +1,18 @@
+img {
+  width: 100%;
+  height: auto;
+  box-sizing: border-box;
+}
+
+.castContainer {
+  width: 100px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-size: 16px;
+  font-weight: 200;
+  line-height: 1.2;
+}
+.castContainer p {
+  text-align: center;
+}
