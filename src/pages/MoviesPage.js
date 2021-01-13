@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
-import { useHistory, useLocation, useRouteMatch } from 'react-router-dom';
-import PropTypes from 'prop-types';
+import { useHistory, useLocation } from 'react-router-dom';
+import ReactRouterPropTypes from 'react-router-prop-types';
+import Error from '../сomponents/Error/Error';
 import Moiveslist from '../сomponents/MovieGallery/MoviesList';
 import Searchbar from '../сomponents/Searchbar/Searchbar';
 import Loader from '../сomponents/Loader/Loader';
@@ -13,10 +14,6 @@ function MoviesPage() {
   const [error, setError] = useState(null);
   const history = useHistory();
   const location = useLocation();
-  const match = useRouteMatch();
-  // console.log('Match', match);
-  // console.log('Loaction', location);
-  // console.log('History', history);
 
   useEffect(() => {
     const { query } = getQparams(location.search);
@@ -36,7 +33,9 @@ function MoviesPage() {
     setLoading(true);
     api
       .fetchMovieByKeyword(query)
-      .then(response => setMovies([...response.results]))
+      .then(response => {
+        setMovies([...response.results]);
+      })
       .catch(error => setError(error))
       .finally(setLoading(false));
   };
@@ -44,22 +43,18 @@ function MoviesPage() {
   return (
     <>
       <Searchbar onSubmitForm={handleSubmitQuery} />
-      {error && <p>ERRRORRRRR</p>}
+      {error && <Error error={error} />}
       {loading && <Loader />}
-      {movies && (
-        <Moiveslist
-          movieArr={movies}
-          matchUrl={match.url}
-          movieLocation={location}
-        />
-      )}
+      {movies && <Moiveslist movieArr={movies} />}
     </>
   );
 }
 
 MoviesPage.propTypes = {
-  match: PropTypes.object.isRequired,
-  location: PropTypes.object.isRequired,
+  history: ReactRouterPropTypes.history.isRequired,
+  location: ReactRouterPropTypes.location.isRequired,
+  match: ReactRouterPropTypes.match.isRequired,
+  // route: ReactRouterPropTypes.route.isRequired,
 };
 
 export default MoviesPage;

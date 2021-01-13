@@ -8,6 +8,7 @@ import {
 import ReactRouterPropTypes from 'react-router-prop-types';
 import routes from '../../routes';
 import Loader from '../../сomponents/Loader/Loader';
+import Error from '../../сomponents/Error/Error';
 import MovieDetails from '../../сomponents/MovieDetails/MovieDetails';
 import AdditionalDetails from '../../сomponents/MovieDetails/AdditionDetailsList/AdditionDetailsList';
 import MDPStyle from './MovieDetailsPage.module.css';
@@ -40,21 +41,12 @@ function MovieDetailsPage() {
       .finally(setLoading(false));
   }, [match.params.movieId]);
 
-  const handlerGoBack = () => {
-    const { state } = location;
-    if (state && state.from) {
-      return history.push(state.from);
-    }
-
-    return history.push(routes.home);
-  };
-
-  console.log(movie);
+  const handlerGoBack = () =>
+    history.push(location?.state?.from ?? routes.home);
 
   return (
     <>
-      {error && <p>Error</p>}
-
+      {error && <Error error={error} />}
       {loading && <Loader />}
 
       <button type="button" onClick={handlerGoBack} className={MDPStyle.button}>

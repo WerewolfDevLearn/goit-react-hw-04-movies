@@ -2,6 +2,7 @@ import React, { lazy, Suspense } from 'react';
 import { Route, Switch, Redirect } from 'react-router-dom';
 import Layout from './Layout';
 import Loader from './Loader/Loader';
+import { ToastContainer } from 'react-toastify';
 // import HomePage from '../pages/HomePage';
 // import MoviesPage from '../pages/MoviesPage';
 // import MovieDetailsPage from '../pages/MovieDetailsPage';
@@ -18,18 +19,17 @@ const MovieDetailsPage = lazy(() =>
 
 const App = () => {
   return (
-    <>
-      <Layout>
-        <Suspense fallback={<Loader />}>
-          <Switch>
-            <Route path={routes.home} exact component={HomePage} />
-            <Route path={routes.movieDetails} component={MovieDetailsPage} />
-            <Route path={routes.movies} component={MoviesPage} />
-            <Redirect to={routes.home} />
-          </Switch>
-        </Suspense>
-      </Layout>
-    </>
+    <Layout>
+      <ToastContainer />
+      <Suspense fallback={<Loader />}>
+        <Switch>
+          <Route path={routes.home} exact component={HomePage} />
+          <Route path={routes.movieDetails} component={MovieDetailsPage} />
+          <Route path={routes.movies} component={MoviesPage} />
+          <Redirect to={routes.home} />
+        </Switch>
+      </Suspense>
+    </Layout>
   );
 };
 

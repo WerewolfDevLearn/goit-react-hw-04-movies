@@ -1,14 +1,16 @@
 import PropTypes from 'prop-types';
-import CastStyle from './cast.module.css';
-import getPosterPath from '../../../utils/getPosterPath';
+import CastStyle from './Cast.module.css';
+import getAvatarPath from '../../../utils/getAvatarPath';
 
 function Cast({ cast }) {
   const { profile_path, name } = cast;
-  const posterPath = getPosterPath(profile_path);
+  const posterPath = getAvatarPath(profile_path);
   return (
     <>
       <div className={CastStyle.castContainer}>
-        <img src={`${posterPath}`} alt={name} />
+        <div className={CastStyle.imgContainer}>
+          <img src={`${posterPath}`} alt={name} />
+        </div>
         <p>{name}</p>
       </div>
     </>
