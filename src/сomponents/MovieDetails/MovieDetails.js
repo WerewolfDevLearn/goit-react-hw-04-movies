@@ -1,4 +1,3 @@
-import React from 'react';
 import PropTypes from 'prop-types';
 import MovieDetailsStyle from './MoviDetails.module.css';
 import getGenres from '../../utils/getGenres';

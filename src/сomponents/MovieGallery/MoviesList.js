@@ -1,10 +1,10 @@
-import { NavLink, useRouteMatch } from 'react-router-dom';
+import { useRouteMatch } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import MovieListItem from './MovieListItem/MovieListItem';
 import movieListStyle from './MoviesList.module.css';
 import routes from '../../routes';
 
-function MovieList({ movieArr, movieLocation }) {
+function MovieList({ movieArr }) {
   const match = useRouteMatch();
   let finalUrl = match.url;
 
@@ -12,22 +12,10 @@ function MovieList({ movieArr, movieLocation }) {
     finalUrl = routes.movies;
   }
 
-  // console.log('Match', match);
-  // console.log('Match.params', match.params);
   return (
     <ul className={movieListStyle.mList}>
       {movieArr.map(movie => (
-        <li key={movie.id}>
-          <NavLink
-            to={{
-              pathname: `${finalUrl}/${movie.id}`,
-              state: { from: movieLocation },
-            }}
-            className={movieListStyle.mListLink}
-          >
-            <MovieListItem movieName={movie.title} />
-          </NavLink>
-        </li>
+        <MovieListItem movie={movie} finalUrl={finalUrl} key={movie.id} />
       ))}
     </ul>
   );
@@ -37,11 +25,12 @@ MovieList.propTypes = {
   movieArr: PropTypes.arrayOf(
     PropTypes.shape({
       title: PropTypes.string.isRequired,
+      poster_path: PropTypes.string,
+      popularity: PropTypes.number.isRequired,
+      overview: PropTypes.string.isRequired,
       id: PropTypes.number.isRequired,
-    }),
-  ),
-  matchUrl: PropTypes.string,
-  movieLocation: PropTypes.object,
+    }).isRequired,
+  ).isRequired,
 };
 
 export default MovieList;

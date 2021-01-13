@@ -46,8 +46,10 @@ function MovieDetailsPage() {
       return history.push(state.from);
     }
 
-    return history.push(routes.movies);
+    return history.push(routes.home);
   };
+
+  console.log(movie);
 
   return (
     <>
